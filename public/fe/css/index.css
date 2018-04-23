@@ -1,0 +1,264 @@
+html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+/* 头部 */
+.mui-bar {
+  background-color: #006699;
+}
+.fa-arrow-left {
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+}
+.mui-title {
+  color: #fff;
+}
+/* 尾部 */
+.mui-bar-tab {
+  background-color: #006699;
+}
+.mui-bar-tab .mui-tab-item {
+  font-size: 14px;
+  color: #fff;
+}
+.fa-search {
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+  position: absolute;
+  top: 3px;
+  right: 13px;
+}
+.mui-bar-tab .mui-item.active {
+  color: #FF8C00;
+}
+.mui-bar-tab .mui-item {
+  display: table-cell;
+  overflow: hidden;
+  width: 1%;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+.mui-item span {
+  display: block;
+}
+.main-carousel {
+  width: 100%;
+}
+.main-carousel .mui-slider-item {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.main-carousel .mui-slider-item a {
+  display: block;
+  width: 100%;
+}
+.main-carousel .mui-slider-item a img {
+  width: 100%;
+}
+.nav {
+  padding: 10px;
+}
+.nav ul {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  list-style: none;
+  overflow: hidden;
+}
+.nav ul li {
+  width: 33.33%;
+  float: left;
+}
+.nav ul li a {
+  width: 100%;
+}
+.nav ul li a img {
+  width: 100%;
+}
+.sale {
+  width: 100%;
+  padding: 0 10px;
+}
+.sale ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+}
+.sale ul li {
+  width: 33.33%;
+  float: left;
+}
+.sale ul li.right {
+  float: right;
+}
+.sale ul li a {
+  width: 100%;
+}
+.sale ul li a img {
+  width: 100%;
+}
+.pinpai {
+  width: 100%;
+  color: #fff;
+  font-size: 24px;
+}
+.pinpai .pinpai-header {
+  margin: 0 10px;
+}
+.pinpai .pinpai-header img {
+  width: 100%;
+}
+.pinpai ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.pinpai ul li {
+  width: 25%;
+  float: left;
+}
+.pinpai ul li a {
+  display: block;
+  width: 100%;
+}
+.pinpai ul li a img {
+  width: 100%;
+}
+.sport {
+  width: 100%;
+  padding: 0 10px;
+}
+.sport .sport-header {
+  width: 100%;
+}
+.sport .sport-header img {
+  width: 100%;
+}
+.sport ul {
+  width: 100%;
+  list-style: none;
+  margin: 20px 10px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.sport ul li {
+  width: 48%;
+  float: left;
+  box-shadow: 0 0 2px #000;
+  text-align: center;
+  margin-bottom: 2px;
+}
+.sport ul li:nth-child(2n) {
+  float: right;
+  margin-right: 2px;
+}
+.sport ul a {
+  display: block;
+  width: 100%;
+}
+.sport ul img {
+  width: 100%;
+  vertical-align: middle;
+}
+.sport ul P {
+  font-size: 16px;
+  text-align: center;
+}
+.sport ul .price {
+  text-align: center;
+}
+.sport ul .price span {
+  font-size: 14px;
+  color: red;
+}
+.sport ul span.del {
+  color: #ccc;
+  text-decoration: line-through;
+  margin-left: 5px;
+}
+.sport ul .mui-btn,
+.sport ul button,
+.sport ul input[type=button],
+.sport ul input[type=reset],
+.sport ul input[type=submit] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.girl {
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+.girl .girl-header {
+  width: 100%;
+}
+.girl .girl-header img {
+  width: 100%;
+}
+.girl ul {
+  width: 100%;
+  list-style: none;
+  margin: 20px 10px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.girl ul li {
+  width: 48%;
+  float: left;
+  box-shadow: 0 0 2px #000;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.girl ul li:nth-child(2n) {
+  float: right;
+  margin-right: 2px;
+}
+.girl ul a {
+  display: block;
+  width: 100%;
+}
+.girl ul img {
+  width: 100%;
+  vertical-align: middle;
+}
+.girl ul P {
+  font-size: 16px;
+  text-align: center;
+}
+.girl ul .price {
+  text-align: center;
+}
+.girl ul .price span {
+  font-size: 14px;
+  color: red;
+}
+.girl ul span.del {
+  color: #ccc;
+  text-decoration: line-through;
+  margin-left: 5px;
+}
+.girl ul .mui-btn,
+.girl ul button,
+.girl ul input[type=button],
+.girl ul input[type=reset],
+.girl ul input[type=submit] {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.space {
+  height: 52px;
+  width: 100%;
+}

@@ -1,0 +1,108 @@
+html,body,ul{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background-color: #C9C9C9;
+}
+ul {
+  list-style: none;
+  width: 80px;
+  margin-right: 10px;
+}
+ul li {
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  border-bottom: 1px solid #C9C9C9;
+}
+ul li.active {
+  background-color: #C9C9C9;
+}
+header.mui-bar {
+  background-color: #006699;
+  padding: 0 44px;
+}
+.head-img {
+  vertical-align: middle;
+}
+.fa-arrow-left{
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+  position: absolute;
+  top: 3px;
+  left: 13px;
+}
+.fa-search{
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+  position: absolute;
+  top: 3px;
+  right: 13px;
+}
+.mui-input-row {
+  height: 30px;
+  margin-top: 6px;
+}
+.mui-bar-tab .mui-item.active{
+  color: #FF8C00;
+}
+.mui-bar-tab .mui-item {
+  display: table-cell;
+  overflow: hidden;
+  width: 1%;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  color:#fff;
+}
+.mui-item span{
+  display: block;
+
+}
+.mui-bar-nav~.mui-content {
+  display: flex;
+  background-color: #C9C9C9;
+}
+.mui-title {
+  color: #fff;
+}
+.mui-bar{
+  background-color: #006699;
+}
+.right{
+  flex: 1;
+  position: relative;
+  margin-top: 10px;
+  background-color: #fff;
+}
+.right .mui-scroll {
+  height: 100px;
+}
+.right .mui-scroll div {
+  width: 33.33%;
+  float:left;
+}
+.right div p{
+  text-align: center;
+}
+.right div img {
+  display: block;
+  width: 60px;
+  margin: 0 auto;
+}
+.mui-scroll-wrapper {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 引入mui.css -->
+  <link rel="stylesheet" href="../lib/mui/css/mui.min.css">
+  <!-- 引入字体图标 -->
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <!-- 引入自己的css -->
+  <link rel="stylesheet" href="../css/search.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 最外边的盒子 -->
+  <div class="ltao">
+    <!-- 头部 -->
+    <header class="mui-bar mui-bar-nav">
+      <a href="javascript:history.back()" class="fa fa-arrow-left"></a>
+      <h1 class="mui-title">搜索中心</h1>
+    </header>
+    <!-- 主体部分 -->
+    <div class="mui-content">
+      <div class="mui-input-row mui-password">
+        <input type="text" class="mui-input-password" data-input-password="3" placeholder="搜索你喜欢的商品">
+        <a href="javascript:;" class="search-btn">搜索</a>
+      </div>
+      <ul class="history">
+        <li>
+          <span>搜索历史</span>
+          <span class="clearHistory">
+            <i class="fa fa-trash"></i>清空记录</span>
+        </li>
+      </ul>
+      <ul class="historyList">
+        <li>
+          <span class="font">nike</span>
+          <span class="del fa fa-close"></span>
+        </li>
+      </ul>
+      <!-- <ul class="manu">
+        <li>上架时间 <span class="fa fa-chevron-down"></span></li>
+        <li>价格 <span class="fa fa-chevron-down"></span></li>
+        <li>销量 <span class="fa fa-chevron-down"></span></li>
+        <li>折扣 <span class="fa fa-chevron-down"></span></li>
+      </ul> -->
+    </div>
+    <!-- 页脚部分 -->
+    <nav class="mui-bar mui-bar-tab">
+      <a class="mui-tab-item" href="#tabbar">
+        <span class="mui-icon fa fa-home"></span>
+        <span class="mui-tab-label">首页</span>
+      </a>
+      <a class="mui-tab-item" href="#tabbar-with-chat">
+        <span class="mui-icon fa fa-reorder"></span>
+        <span class="mui-tab-label">分类</span>
+      </a>
+      <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon fa fa-shopping-cart"></span>
+        <span class="mui-tab-label">购物车</span>
+      </a>
+      <a class="mui-tab-item" href="#tabbar-with-map">
+        <span class="mui-icon fa fa-user"></span>
+        <span class="mui-tab-label">会员中心</span>
+      </a>
+    </nav>
+  </div>
+
+  </div>
+
+  <script type="text/template" id="historyList-tmpl">
+    <%if(data.length == 0){%>
+      <p>没有历史记录</p>
+    <%}else{%>
+    <% for (var i = 0; i < data.length; i++) { %>
+      <li>
+        <span class="font"><%=data[i]%></span>
+        <span class="del fa fa-close"></span>
+      </li>
+    <% } } %>
+  </script>
+
+  <!-- 引入zepto -->
+  <script src="../lib/zepto/zepto.min.js"></script>
+  <!-- 引入模板引擎库 -->
+  <script src="../lib/artTemplate/template-native.js"></script>
+  <script>
+
+
+
+
+
+
+
+
+
+
+
+    //获取历史记录
+    var getHistoryList = function () {
+      var history = window.localStorage.getItem('History') || "[]";
+      return JSON.parse(history);
+    }
+    // getHistoryList();
+    //插入历史记录
+    var setHistoryList = function (data) {
+      //1.获取历史记录
+      var historyData = getHistoryList();
+      //2.查重
+      historyData.forEach(function (item, index) {
+        if (item == data) {
+          historyData.splice(index, 1);
+        }
+      });
+      //3.插入历史记录中
+      historyData.push(data);
+      //4.将历史记录记录回去
+      window.localStorage.setItem('History', JSON.stringify(historyData));
+    }
+    //删除某个历史记录
+    var deleteHistory = function (history) {
+      //1.获取历史记录
+      var historyData = getHistoryList();
+      //2.遍历历史记录
+      historyData.forEach(function (item, index) {
+        if (item == history) {
+          historyData.splice(index, 1);
+        }
+      });
+      //3.将历史记录记录回去
+      window.localStorage.setItem('History', JSON.stringify(historyData));
+    }
+    //清空历史记录
+    var deleteAllHistory = function () {
+      window.localStorage.removeItem('History');
+    }
+    //渲染页面
+    var showHistoryList = function () {
+      //获取历史记录
+      var historyData = getHistoryList();
+      console.log(historyData);
+      //写模板
+      var str = template('historyList-tmpl', { data: historyData });
+      //将渲染好的内容显示到界面
+      $('.historyList').html(str);
+    }
+
+
+
+
+
+    //1.当界面加载的时候就先渲染一次界面
+    showHistoryList();
+    //2.当点击搜索按钮的时
+    $('.search-btn').on('click', function () {
+      //  2.1 获取搜索框中的内容 判断搜索框中的内容是否为空 如果为空提示用户输入内容
+      var text = $('.mui-input-password').val();
+
+      if (text.trim()) {
+        //  2.2 如果内容不为空 将历史记录添加到localStorage中  
+        setHistoryList(text.trim());
+        //  2.3 跳转到搜索详情页
+        location.href = "./search-list.html?keyword="+text.trim();
+      }
+    });
+
+    //点击搜索记录的时候可以根据搜索记录的文字 跳转到搜索中心页面
+    $('.historyList').on('click','.font',function(){
+      //获取前一个子元素的文字
+      var str = $(this).html();
+      setHistoryList(str.trim());
+      location.href = "./search-list.html?keyword="+str.trim();
+    });
+
+
+    // 点击关闭按钮可以删除某一项
+    $('.historyList').on('click','.del',function(){
+      var html = $(this).prev().html();
+      deleteHistory(html);
+      showHistoryList();
+    });
+
+    //点击清空记录的时候将所有的记录清空
+    $('.clearHistory').click(function (){
+      deleteAllHistory();
+      showHistoryList();
+    });
+  </script>
+</body>
+
+</html>

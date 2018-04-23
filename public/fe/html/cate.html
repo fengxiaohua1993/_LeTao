@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../lib/mui/css/mui.min.css">
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/cate.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="fa fa-arrow-left" href="javascript:history.back();"></a>
+    <div class="mui-input-row">
+      <input type="text" class="mui-input">
+    </div>
+    <a href="./search.html" class="fa fa-search"></a>
+  </header>
+  <!-- 主体部分 -->
+  <div class="mui-content">
+    <ul>
+
+    </ul>
+    <div class="right">
+      <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+          <div>
+            <img src="../images/brand1.png" alt="">
+            <p>耐克</p>
+          </div>
+          <div>
+            <img src="../images/brand2.png" alt="">
+            <p>耐克</p>
+          </div>
+          <div>
+            <img src="../images/brand3.png" alt="">
+            <p>耐克</p>
+          </div>
+          <div>
+            <img src="../images/brand4.png" alt="">
+            <p>耐克</p>
+          </div>
+          <div>
+            <img src="../images/brand5.png" alt="">
+            <p>耐克</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- 页脚部分 -->
+  <nav class="mui-bar mui-bar-tab">
+    <a class="mui-item" href="./index.html">
+      <span class="mui-icon fa fa-home"></span>
+      <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-item active" href="./cart.html">
+      <span class="mui-icon fa fa-reorder"></span>
+      <span class="mui-tab-label">分类</span>
+    </a>
+    <a class="mui-item" href="#tabbar-with-contact">
+      <span class="mui-icon fa fa-shopping-cart"></span>
+      <span class="mui-tab-label">购物车</span>
+    </a>
+    <a class="mui-item" href="#tabbar-with-map">
+      <span class="mui-icon fa fa-user"></span>
+      <span class="mui-tab-label">会员中心</span>
+    </a>
+  </nav>
+
+  <script src="../lib/zepto/zepto.min.js"></script>
+  <script src="../lib/artTemplate/template-native.js"></script>
+  <script src="../lib/mui/js/mui.min.js"></script>
+  <script type="text/template" id="tpl">
+    <% for (i=0;i<rows.length;i++) { %>
+      <% if (i==0) {%>
+        <li class="active" data-id="<%=rows[i].id%>"><%=rows[i].categoryName%></li>
+      <% } else {%>
+        <li data-id="<%=rows[i].id%>"><%=rows[i].categoryName%></li>
+    <% } }%>
+  </script>
+  <script type="text/template" id="tpl2">
+    <%if(rows.length!=0){%>
+    <% for (i=0;i<rows.length;i++) { %>
+      <div>
+        <img src="<%=rows[i].brandLogo%>" alt="">
+        <p><%=rows[i].brandName%></p>
+      </div>
+    <% } }else{%>
+      <p>没有相关搜索记录</p>
+    <%}%>
+  </script>
+  <script>
+    $.ajax({
+      url: "/category/queryTopCategory",
+      data: null,
+      type: "get",
+      success: function (data) {
+        var str = template('tpl', data);
+        $('.mui-content ul').html(str);
+      }
+    });
+    $('.mui-content ul').on('click','li',function (){
+      //将所有li的active删除
+      $('.mui-content li.active').removeClass('active');
+      $(this).addClass('active');
+      var id = $(this).data('id');
+      $.ajax({
+      url: "/category/querySecondCategory",
+      data: {id:id},
+      type: "get",
+      success: function (data) {
+        var str = template('tpl2', data);
+        console.log(data);
+        $('.mui-scroll').html(str);
+        console.log(str);
+      }
+    });
+    })
+    
+
+
+    mui('.mui-scroll-wrapper').scroll({
+      scrollY: true, //是否竖向滚动
+      scrollX: false, //是否横向滚动
+      startX: 0, //初始化时滚动至x
+      startY: 0, //初始化时滚动至y
+      indicators: true, //是否显示滚动条
+      deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+      bounce: true //是否启用回弹
+    });
+  </script>
+  <script>
+  </script>
+</body>
+
+</html>

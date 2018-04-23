@@ -1,0 +1,24 @@
+html,body{
+  height: 100%;
+  background-color: #fff;
+}
+/* 头部 */
+.ltao .mui-bar{
+  background-color: #006699;
+}
+.ltao .fa-arrow-left{
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+}
+.mui-title {
+  color: #fff;
+}
+/* 尾部 */
+.mui-bar-tab {
+  background-color: #006699;
+}
+.mui-bar-tab .mui-tab-item{
+  font-size: 14px;
+  color:#fff;
+}

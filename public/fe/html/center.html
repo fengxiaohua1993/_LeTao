@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 引入mui.css -->
+  <link rel="stylesheet" href="../lib/mui/css/mui.min.css">
+  <!-- 引入字体图标 -->
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <!-- 引入自己的css -->
+  <link rel="stylesheet" href="../css/center.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 最外边的盒子 -->
+  <div class="ltao">
+    <!-- 头部 -->
+    <header class="mui-bar mui-bar-nav">
+      <a class="fa fa-arrow-left"></a>
+      <h1 class="mui-title">个人中心</h1>
+    </header>
+    <!-- 主体部分 -->
+    <div class="mui-content">
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+          <a class="mui-navigate-right" href="#account">
+            <img class="mui-media-object mui-pull-left head-img" id="head-img" src="../images/user.jpg">
+            <div class="mui-media-body">
+              itcast
+              <p class="mui-ellipsis">绑定手机：15058932321</p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right">
+            账号与安全
+          </a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right">
+            我的购物车
+          </a>
+        </li>
+        <li class="mui-table-view-cell">
+          <a class="mui-navigate-right">
+            收货地址管理
+          </a>
+        </li>
+      </ul>
+      <a class="logout" href="javascript:;">退出登录</a>
+    </div>
+
+  </div>
+  <!-- 页脚部分 -->
+  <nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item" href="#tabbar">
+      <span class="mui-icon fa fa-home"></span>
+      <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-chat">
+      <span class="mui-icon fa fa-reorder"></span>
+      <span class="mui-tab-label">分类</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+      <span class="mui-icon fa fa-shopping-cart"></span>
+      <span class="mui-tab-label">购物车</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-map">
+      <span class="mui-icon fa fa-user"></span>
+      <span class="mui-tab-label">会员中心</span>
+    </a>
+  </nav>
+  </div>
+
+  </div>
+
+
+
+  <!-- 引入zepto -->
+  <script src="../lib/zepto/zepto.min.js"></script>
+</body>
+
+</html>
