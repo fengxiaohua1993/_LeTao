@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 引入mui.css -->
+  <link rel="stylesheet" href="../lib/mui/css/mui.min.css">
+  <!-- 引入字体图标 -->
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <!-- 引入自己的css -->
+  <link rel="stylesheet" href="../css/search-list.css">
+  <link rel="stylesheet" href="../css/detail.css">
+  <title>商品详情页</title>
+</head>
+
+<body>
+  <!-- 最外边的盒子 -->
+  <div class="ltao">
+    <!-- 头部 -->
+    <header class="mui-bar mui-bar-nav">
+      <a href="javascript:history.back()" class="fa fa-arrow-left"></a>
+      <h1 class="mui-title">商品详情</h1>
+      <a href="./index.html" class="fa fa-home"></a>
+    </header>
+    <!-- 主体部分 -->
+    <main class="mui-content">
+
+      <p class="product-name">Sport飓风 Nike Kwazi 休闲运动鞋男 844839-002-001-100-400</p>
+      <div class="product-price">
+        价格：
+        <span>￥499.1</span>
+        <span>￥899.1</span>
+      </div>
+      <div class="product-size">
+        尺码：
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+        <span>30</span>
+      </div>
+      <div class="product-number">
+        数量：
+        <div class="mui-numbox" id="numbox_demo1" data-numbox-step="1" data-numbox-min="0" data-numbox-max="10">
+          <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+          <input class="mui-input-numbox" type="number">
+          <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+        </div>
+        剩余20件
+      </div>
+    </main>
+    <!-- 页脚部分 -->
+    <nav class="mui-bar mui-bar-tab">
+      <div class="footer-inner">
+        <a href="javascript:;" class="cart fa fa-shopping-cart"></a>
+        <div class="btn">
+          <a class="addCart-btn" href="javascript:;">加入购物车</a>
+          <a class="buy-btn" href="javascript:;">立即购买</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+  </div>
+
+
+
+
+  <!-- 主体部分的模板引擎定义 -->
+  <script type="text/template" id="main-tmpl">
+    <!-- 轮播图部分 -->
+    <div id="slider" class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+          <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+          <div class="mui-slider-item mui-slider-item-duplicate">
+            <a href="#">
+              <img src="<%=pic[pic.length-1].picAddr%>">
+            </a>
+          </div>
+
+          <%for(var i=0;i<pic.length;i++){%>
+          <!-- 第一张 -->
+          <div class="mui-slider-item">
+            <a href="#">
+              <img src="<%=pic[i].picAddr%>">
+            </a>
+          </div>
+          <%}%>
+          <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+          <div class="mui-slider-item mui-slider-item-duplicate">
+            <a href="#">
+              <img src="<%=pic[0].picAddr%>">
+            </a>
+          </div>
+        </div>
+        <!-- <div class="mui-slider-indicator">
+          <%for(var i=0;i<pic.length;i++){%>
+            <%if(i==0){%>
+              <div class="mui-indicator mui-active"></div>
+          <%}else {%>
+              <div class="mui-indicator"></div>
+          <%}}%>
+        </div> -->
+        <p class="product-name"><%=proName%></p>
+        <div class="product-price">
+            价格：
+            <span><%=price%></span>
+            <span><%=oldPrice%></span>
+        </div>
+        <div class="product-size">
+            尺码：
+            <%for(var i = dataSize[0];i < dataSize[1];i++){%>
+            <span><%=i%></span>
+            <%}%>
+          </div>
+          <div class="product-number">
+              数量：
+              <div class="mui-numbox" id="numbox_demo1" data-numbox-step="1" data-numbox-min="0" data-numbox-max="<%=num%>">
+                <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                <input class="mui-input-numbox" type="number" value="1">
+                <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+              </div>
+              剩余<%=num%>件
+            </div>
+      </div>
+  </script>
+  <!-- 引入zepto -->
+  <script src="../lib/zepto/zepto.min.js"></script>
+  <script src="../lib/mui/js/mui.min.js"></script>
+  <!-- 引入模板引擎库 -->
+  <script src="../lib/artTemplate/template-native.js"></script>
+  <script>
+    //获取id url中的id
+    var url = new URLSearchParams(location.search);
+    var id = url.get('productId');
+    console.log(id);
+    //渲染页面
+    $.ajax({
+      type: 'get',
+      url: '/product/queryProductDetail',
+      data: {
+        id: id
+      },
+      success: function (data) {
+        var dataSize = data.size;
+        data.dataSize = dataSize.split('-');
+        console.log(data);
+        var str = template('main-tmpl', data);
+        console.log(str);
+        $('.mui-content').html(str);
+        mui('.mui-numbox').numbox();
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+          interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+        $('.product-size').on('tap','span',function (){
+          console.log($(this).text());
+          $('.product-size .active').removeClass('active');
+          $(this).addClass('active');
+        })
+      }
+    });
+  $('.addCart-btn').on('tap',function(){
+    //获取id
+    console.log('产品id：'+id);
+    //获取数量
+    var num = mui('#numbox_demo1').numbox().getValue()
+    console.log('尺码为:'+num);
+    //获取尺码
+    var size = $('.product-size span.active').text();
+    console.log('数量为'+ size);
+    $.ajax({
+      url:'/cart/addCart',
+      type:'post',
+      data:{
+        productId:id,
+        num:20,
+        size:45
+      },
+      success:function(data){
+        console.log(data);
+        if(data.error == 400){
+          // mui.toast(data.message);
+          console.log(location.href);
+          location.href = "./login.html?returnUrl="+location.href;
+        }else if(data.success){
+          location.href = "./cart.html";
+        }
+      }
+    });
+  });
+  </script>
+</body>
+
+</html>

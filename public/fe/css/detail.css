@@ -1,0 +1,92 @@
+.fa-home{
+  color: #fff;
+  font-size: 17px;
+  margin-top: 10px;
+  position: absolute;
+  top: 3px;
+  right: 13px;
+}
+.mui-bar-nav ~ .mui-content {
+  padding-top: 44px;
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: #fff;
+}
+.product-name {
+  padding-left: 10px;
+  font-size: 20px;
+  color:#333;
+  padding: 15px 0;
+  margin: 0;
+}
+.product-price {
+  height: 50px;
+  line-height: 50px;
+  padding: 0px;
+  padding-left: 10px;
+  margin: 0px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+}
+.product-price span:first-child{
+  color:#EA543D;
+  font-weight: bold;
+  font-size: 24px;
+}
+.product-price span:last-child{
+  color:#666;
+  font-size: 14px;
+  text-decoration: line-through;
+}
+.product-size {
+  padding: 10px 0;
+  padding-left: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.product-size span{
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  line-height: 40px;
+}
+.product-number {
+  padding: 15px 0;
+  padding-left: 10px;
+}
+.footer-inner {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #ccc;
+  border: 2px solid #ccc;
+  padding-left: 60px;
+}
+.footer-inner .cart {
+  position: absolute;
+  font-size: 24px;
+  left: 13px;
+  top: 10px;
+}
+.fa-shopping-cart {
+  color: #333;
+}
+.footer-inner .btn {
+  width: 100%;
+  height: 100%;
+  
+}
+.footer-inner .btn a{
+  float:left;
+  width: 40%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #991020;
+  margin-left: 20px;
+  margin-top: 4px;
+  color: #fff;
+  text-align: center;
+}
+
+.product-size .active {
+  background-color: orangered;
+}
+

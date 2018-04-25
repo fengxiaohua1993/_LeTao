@@ -24,18 +24,19 @@
     </header>
     <!-- 主体部分 -->
     <div class="mui-content">
-      <div class="mui-input-row">
-        <input type="text" class="mui-input" placeholder="用户名/手机号">
-      </div>
-      <div class="mui-input-row mui-password">
-        <input type="password" class="mui-input-password" data-input-password="3" placeholder="密码">
-        <span class="mui-icon mui-icon-eye"></span>
-      </div>
-      <button type="button" class="mui-btn mui-btn-primary mui-btn-block">登陆</button>
-      <div class="box-register">
-        <a class="register" href="javascript:;">免费注册</a>
-      </div>
-      
+      <form action="" id="form">
+          <div class="mui-input-row">
+              <input type="text" class="mui-input" name="username" placeholder="用户名/手机号">
+            </div>
+            <div class="mui-input-row mui-password">
+              <input type="password" class="mui-input-password" name="password" data-input-password="3" placeholder="密码">
+              <span class="mui-icon mui-icon-eye"></span>
+            </div>
+            <button type="button" class="mui-btn mui-btn-primary mui-btn-block">登陆</button>
+            <div class="box-register">
+              <a class="register" href="javascript:;">免费注册</a>
+            </div>
+      </form>
     </div>
     <!-- 页脚部分 -->
     <nav class="mui-bar mui-bar-tab">
@@ -64,6 +65,34 @@
 
   <!-- 引入zepto -->
   <script src="../lib/zepto/zepto.min.js"></script>
+  <script src="../lib/mui/js/mui.min.js"></script>
+  <script>
+    //验证用户名密码
+    $('.mui-btn').on('tap',function (){
+      var userInfo = $('#form').serialize();
+      console.log(userInfo);
+      //发送ajax请求
+      $.ajax({
+        url:'/user/login',
+        type:'post',
+        data:userInfo,
+        success: function(data){
+          if(data.error==403){
+            mui.toast(data.message);
+          }else if(data.success == true){
+            var url = new URLSearchParams(location.search);
+            var returnUrl = url.get('returnUrl');
+            console.log(returnUrl);
+            if(returnUrl){
+              location.href = returnUrl;
+            } else {
+              location.href = "./index.html";
+            }
+          }
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="../css/font-awesome.min.css">
   <!-- 引入自己的css -->
   <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/cart.css">
   <title>Document</title>
 </head>
 
@@ -24,7 +25,37 @@
     </header>
     <!-- 主体部分 -->
     <div class="mui-content">
-      
+      <ul id="OA_task_2" class="mui-table-view">
+        <li class="mui-table-view-cell mui-transitioning">
+          <div class="mui-slider-left mui-disabled">
+            <a class="mui-btn mui-btn-red">删除</a>
+          </div>
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="mui-item">
+              <div class="mui-item-left">
+                <a href="javascript:;">
+                  <img src="../images/product.jpg" alt="">
+                </a>
+                <input type="checkbox" name="" id="">
+              </div>
+              <div class="mui-item-right">
+                <p>匡威三星标1970s converse复刻 142334c144757c三星标黑色高帮</p>
+                <div class="mui-item-price">
+                  <span>&yen;499.1</span>
+                  <span>&yen;888.1</span>
+                  <span>x1双</span>
+                </div>
+                <div class="mui-item-size">
+                  鞋码：50
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
     <!-- 页脚部分 -->
     <nav class="mui-bar mui-bar-tab">
@@ -46,13 +77,207 @@
       </a>
     </nav>
   </div>
-
   </div>
-
-
 
   <!-- 引入zepto -->
   <script src="../lib/zepto/zepto.min.js"></script>
+  <script src="../lib/artTemplate/template-native.js"></script>
+  <!-- 引入mui.js -->
+  <script src="../lib/mui/js/mui.min.js"></script>
+  <!-- 模板定义 -->
+  <script type="text/template" id="cart-template">
+    <%for(var i = 0;i < data.length; i++){%>
+      <li class="mui-table-view-cell mui-transitioning">
+          <div class="mui-slider-left mui-disabled">
+            <a class="mui-btn mui-btn-blue" data-id="<%=data[i].id%>" data-productSize="<%=data[i].productSize%>" data-size="<%=data[i].size%>" data-num="<%=data[i].num%>">编辑</a>
+          </div>
+          <div class="mui-slider-right mui-disabled">
+            <a class="mui-btn mui-btn-red"  data-id="<%=data[i].id%>">删除</a>
+          </div>
+          <div class="mui-slider-handle">
+            <div class="mui-item">
+              <div class="mui-item-left">
+                <a href="javascript:;">
+                  <img src="<%=data[i].pic[0].picAddr%>" alt="">
+                </a>
+                <input type="checkbox" name="" id="">
+              </div>
+              <div class="mui-item-right">
+                <p><%=data[i].proName%></p>
+                <div class="mui-item-price">
+                  <span>&yen;<%=data[i].price%></span>
+                  <span>&yen;<%=data[i].oldPrice%></span>
+                  <span>x<%=data[i].num%>双</span>
+                </div>
+                <div class="mui-item-size">
+                  鞋码：<%=data[i].size%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+    <%}%>
+  </script>
+
+  <script type="text/template" id="edit-tmpl">
+    <div class="edit-confirm">
+      <div class="product-size">
+        尺码：
+        <%for(var i = productSize[0];i <= productSize[1];i++){%>
+          <%if(i==size){%>
+            <span class="active"><%=i%></span>
+          <%}else{%>
+          <span><%=i%></span>
+        <%}}%>
+      </div>
+      <div class="product-number">
+        数量：
+        <div class="mui-numbox" id="numbox_demo1" data-numbox-step="1" data-numbox-min="0" data-numbox-max="<%=num%>">
+          <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+          <input class="mui-input-numbox" type="number" value="1">
+          <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+        </div>
+          剩余<%=num%>件
+        </div>
+    </div>
+  </script>
+  <script>
+    $(function () {
+      $(document.body).on('click', '.product-size span', function () {
+        $('.product-size span').removeClass('active');
+        $(this).addClass('active');
+      });
+      //渲染页面
+      getCartList();
+      //弹出框按钮的值的设置
+      var btnArray = ['确定', '取消'];
+      //删除功能
+      $('.mui-table-view').on('tap', '.mui-btn-red', function () {
+        //获取购物车id
+        var id = $(this).data('id');
+        var idArr = [];
+        idArr.push(id);
+        //获取li
+        var li = $(this).parent().parent()[0];
+        mui.confirm('您确定要删除这件宝贝吗？', '温馨提示', btnArray, function (e) {
+          if (e.index == 0) {
+            // 点击了确定
+            $.ajax({
+              type: 'GET',
+              data: { id: idArr },
+              url: '/cart/deleteCart',
+              success: function (data) {
+                if (data.success == true) {
+                  mui.swipeoutClose(li);
+                  //刷新界面
+                  getCartList();
+                }
+              }
+            });
+          } else if (e.index == 1) {
+            //点击了取消
+            setTimeout(function () {
+              mui.swipeoutClose(li);
+            }, 0);
+          }
+        });
+      });
+
+      //编辑功能
+      $('.mui-table-view').on('tap', '.mui-btn-blue', function () {
+        console.log('点击了编辑按钮');
+        //获取li
+        var li = $(this).parent().parent()[0];
+        //获取size
+        var productSize = $(this).data('productsize');
+        var size = $(this).data('size');
+        var num = $(this).data('num');
+        var id = $(this).data('id');
+        console.log('id:' + id);
+        console.log('productSize:' + productSize);
+        console.log('size:' + size);
+        console.log('num' + num);
+
+        //改变productSize的值的格式
+        productSize = productSize.split('-');
+        console.log('productsize:' + productSize);
+        //用模板渲染
+        var str1 = template('edit-tmpl', {
+          id: id,
+          productSize: productSize,
+          size: size,
+          num: num
+        });
+        console.log(str1);
+        //将所有的换行替换调
+        var str = str1.replace(/\n/g, '');
+        mui.confirm(str, '温馨提示', btnArray, function (e) {
+
+          if (e.index == 0) {
+            // 点击了确定
+
+
+            //获取数量 id
+            console.log(id);
+            //获取num
+            var size = $('.product-size .active').text();
+            console.log(size);
+            //获取size
+            var num = mui('.mui-numbox').numbox().getValue();//获取输入框的值
+            console.log(num);
+            $.ajax({
+              type: 'post',
+              data: { id: id, num: num, size: size },
+              url: '/cart/updateCart',
+              success: function (data) {
+                if(data.success == true){
+                  getCartList();
+                }
+              }
+            });
+          } else if (e.index == 1) {
+            //点击了取消
+            setTimeout(function () {
+              mui.swipeoutClose(li);
+            }, 0);
+          }
+          // 必须放在这里
+
+        });
+        // if(e.index == 0){
+        //   //点击了确定
+        //   $.ajax({
+        //     type:'post',
+        //     data:{id:id,num:num,size:size},
+        //     url:'/cart/updateCart',
+        //     success:function(data){
+        //       console.log(data);
+        //     }
+        //   });
+        // }else {
+        //   //点击取消
+        // }
+        mui('.mui-numbox').numbox();
+      });
+    });
+
+    function getCartList() {
+      $.ajax({
+        type: 'get',
+        url: '/cart/queryCart',
+        data: null,
+        success: function (data) {
+          if (data.error == 400) {
+            location.href = './login.html?returnUrl=' + location.href;
+          } else {
+            var str = template('cart-template', { data: data });
+            console.log(str);
+            $('.mui-table-view').html(str);
+          }
+        }
+      });
+    }
+  </script>
 </body>
 
 </html>

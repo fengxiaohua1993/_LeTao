@@ -1,24 +1,45 @@
-html,body{
-  height: 100%;
-  background-color: #fff;
+
+.mui-item {
+  padding: 0 0 0 60px;
+  position: relative;
 }
-/* 头部 */
-.ltao .mui-bar{
-  background-color: #006699;
+.mui-item-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
 }
-.ltao .fa-arrow-left{
-  color: #fff;
-  font-size: 17px;
-  margin-top: 10px;
+.mui-item-left a {
+  display: block;
+  width: 100%;
 }
-.mui-title {
-  color: #fff;
+.mui-item-left img{
+  width: 100%;
 }
-/* 尾部 */
-.mui-bar-tab {
-  background-color: #006699;
+.mui-item-right {
+  margin-left: 10px;
 }
-.mui-bar-tab .mui-tab-item{
-  font-size: 14px;
-  color:#fff;
+.mui-btn-blue {
+  background: blue;
+}
+.mui-btn-red {
+  background: red;
+}
+.product-size {
+  padding: 10px 0;
+  padding-left: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.product-size span{
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  line-height: 40px;
+}
+.product-size .active {
+  background-color: orangered;
+}
+.product-number {
+  padding: 15px 0;
+  padding-left: 10px;
 }

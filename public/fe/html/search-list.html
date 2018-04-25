@@ -23,48 +23,59 @@
       <h1 class="mui-title">搜索结果</h1>
     </header>
     <!-- 主体部分 -->
-    <div class="mui-content">
-      <div class="mui-input-row mui-password">
-        <input type="text" class="mui-input-password" data-input-password="3" placeholder="搜索你喜欢的商品">
-        <a href="javascript:;" class="search-btn">搜索</a>
-      </div>
-      <ul class="manu">
-        <li>上架时间 <span class="fa fa-chevron-down"></span></li>
-        <li>价格 <span class="fa fa-chevron-down"></span></li>
-        <li>销量 <span class="fa fa-chevron-down"></span></li>
-        <li>折扣 <span class="fa fa-chevron-down"></span></li>
-      </ul>
-
-      <!-- 商品列表 -->
-      <div class="goodsList">
-        <ul>
-          <li>
-            <a href="javascript:;">
-              <img src="../images/product.jpg" alt="">
-            </a>
-            <p>addidas阿迪达斯 男士 场下篮球鞋S83700</p>
-            <div class="price">
-              <span>￥560.00</span>
-              <span class="del">￥888.00</span>
-            </div>
-            <div class="mui-btn mui-btn-primary">
-              立即购买
-            </div>
+    <div class="mui-content  mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <div class="mui-input-row mui-password">
+          <input type="text" class="mui-input-password" data-input-password="3" placeholder="搜索你喜欢的商品">
+          <a href="javascript:;" class="search-btn">搜索</a>
+        </div>
+        <ul class="manu">
+          <li>上架时间
+            <span class="fa fa-chevron-down"></span>
           </li>
-          <li>
-            <a href="javascript:;">
-              <img src="../images/product.jpg" alt="">
-            </a>
-            <p>addidas阿迪达斯 男士 场下篮球鞋S83700</p>
-            <div class="price">
-              <span>￥560.00</span>
-              <span class="del">￥888.00</span>
-            </div>
-            <div class="mui-btn mui-btn-primary">
-              立即购买
-            </div>
+          <li>价格
+            <span class="fa fa-chevron-down"></span>
+          </li>
+          <li>销量
+            <span class="fa fa-chevron-down"></span>
+          </li>
+          <li>折扣
+            <span class="fa fa-chevron-down"></span>
           </li>
         </ul>
+
+        <!-- 商品列表 -->
+        <div class="goodsList">
+
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <img src="../images/product.jpg" alt="">
+              </a>
+              <p>addidas阿迪达斯 男士 场下篮球鞋S83700</p>
+              <div class="price">
+                <span>￥560.00</span>
+                <span class="del">￥888.00</span>
+              </div>
+              <div class="mui-btn mui-btn-primary">
+                立即购买
+              </div>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <img src="../images/product.jpg" alt="">
+              </a>
+              <p>addidas阿迪达斯 男士 场下篮球鞋S83700</p>
+              <div class="price">
+                <span>￥560.00</span>
+                <span class="del">￥888.00</span>
+              </div>
+              <a class="mui-btn mui-btn-primary">
+                立即购买
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- 页脚部分 -->
@@ -104,9 +115,9 @@
           <span>￥<%=data[i].price%></span>
           <span class="del">￥<%=data[i].oldPrice%></span>
         </div>
-        <div class="mui-btn mui-btn-primary">
+        <a href="./detail.html?productId=<%=data[i].id%>" class="mui-btn mui-btn-primary haha" data-id="<%=data[i].id%>">
           <%=data[i].num%>购买
-        </div>
+        </a>
       </li>
     <%}}%>
   </script>
@@ -124,34 +135,53 @@
 
 
     //渲染页面
-    function getGoodsList(proName){
+    function getGoodsList(proName) {
       $.ajax({
-        url:'/product/queryProduct',
-        type:'get',
-        data:{
+        url: '/product/queryProduct',
+        type: 'get',
+        data: {
           proName: proName,
           page: 1,
           pageSize: 5
         },
-        success:function (data){
+        success: function (data) {
+          console.log(data);
           //渲染
-          var str = template('product-tmpl',data);
-          console.log(str);
+          var str = template('product-tmpl', data);
           $('.goodsList ul').html(str);
         }
       });
     }
-    $('.search-btn').click(function (){
+    $('.search-btn').click(function () {
       // console.log($('.mui-input-password').val());
-      if($('.mui-input-password').val().trim()){
+      if ($('.mui-input-password').val().trim()) {
         getGoodsList($('.mui-input-password').val().trim());
         console.log($('.mui-input-password').val().trim());
         console.log('进来了');
-      }else{
+      } else {
         mui.alert('请输入搜索内容');
       }
-      
+
     });
+
+
+    mui('.mui-scroll-wrapper').scroll({
+      scrollY: true, //是否竖向滚动
+      scrollX: false, //是否横向滚动
+      startX: 0, //初始化时滚动至x
+      startY: 0, //初始化时滚动至y
+      indicators: true, //是否显示滚动条
+      deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+      bounce: true //是否启用回弹
+    });
+    $('.goodsList ul').on('tap','li',function (){
+      var id = $(this).find('.mui-btn').data('id');
+      console.log(id);
+      location.href = "./detail.html?productId="+id;
+    });
+
+
+    
   </script>
 </body>
 
